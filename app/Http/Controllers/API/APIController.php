@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response as IlluminateResponse;
 use Response;
 
 class APIController extends Controller

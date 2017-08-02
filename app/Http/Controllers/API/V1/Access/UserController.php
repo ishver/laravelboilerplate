@@ -42,6 +42,7 @@ class UserController extends APIController
      * Display a listing of the resource.
      *
      * return Response
+     * @todo : make limit variable dynamic
      */
     public function index()
     {        
