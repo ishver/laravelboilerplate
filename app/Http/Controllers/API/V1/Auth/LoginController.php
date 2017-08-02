@@ -5,12 +5,12 @@ namespace App\Http\Controllers\API\v1\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\APIController;
 use JWTAuth;
 use App\Models\Access\User\User;
 use JWTAuthException;
 
-class UserController extends Controller
+class LoginController extends APIController
 {   
     private $user;
     
@@ -26,11 +26,13 @@ class UserController extends Controller
           'email' => $request->get('email'),
           'password' => bcrypt($request->get('password'))
         ]);
+
         return response()->json(['status'=>true,'message'=>'User created successfully','data'=>$user]);
     }
     
     public function login(Request $request)
-    {         
+    {
+
         $credentials = $request->only('email', 'password');
         $token = null;
         try {

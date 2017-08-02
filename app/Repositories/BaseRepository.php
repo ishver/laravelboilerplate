@@ -18,6 +18,14 @@ class BaseRepository
     /**
      * @return mixed
      */
+    public function getPaginate($limit)
+    {
+        return $this->query()->paginate($limit);
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCount()
     {
         return $this->query()->count();

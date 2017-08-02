@@ -18,16 +18,31 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::group(['namespace' => 'API\V1', 'prefix' => 'v1'], function () {
+Route::group(['namespace' => 'API\V1', 'prefix' => 'v1','as' => 'v1.'], function () {
 
 	Route::group(['namespace' => 'Auth'], function () {
 
-		Route::post('register', 'UserController@register');
-		Route::post('login', 'UserController@login');
+		Route::post('register', 'LoginController@register');
+		Route::post('login', 'LoginController@login');
 
 		Route::group(['middleware' => 'jwt.auth'], function () 
 		{
-		    Route::get('user', 'UserController@getAuthUser');
+		    Route::get('user', 'LoginController@getAuthUser');
 		});
 	});
+
+
+	// All route names are prefixed with 'api.access'.
+	 
+	Route::group([
+	    'prefix'     => 'access',
+	    'as'         => 'access.',
+	    'namespace'  => 'Access',
+	    'middleware' => 'jwt.auth'
+	], function () 
+	{
+		// Routes for USer API
+		Route::resource('user', 'UserController');
+	});
+
 });
