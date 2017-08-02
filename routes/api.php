@@ -16,3 +16,18 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+
+Route::group(['namespace' => 'API\V1', 'prefix' => 'v1'], function () {
+
+	Route::group(['namespace' => 'Auth'], function () {
+
+		Route::post('register', 'UserController@register');
+		Route::post('login', 'UserController@login');
+
+		Route::group(['middleware' => 'jwt.auth'], function () 
+		{
+		    Route::get('user', 'UserController@getAuthUser');
+		});
+	});
+});
